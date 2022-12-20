@@ -3,7 +3,7 @@ package maciek.example;
 /**
  * A tree with mutable tree structure.
  * <p>
- * The nodes of this tree can be added, removed and moved.
+ * The nodes of this tree can be added, removed or moved.
  * 
  * @param <S> semantics type
  */
