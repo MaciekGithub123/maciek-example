@@ -32,8 +32,7 @@ public interface TreeNodeFactory<N extends TreeNode<N, S>, S extends TreeNodeSem
 	public static class Immutable<S extends TreeNodeSemantics<S>> implements TreeNodeFactory<ImmutableTreeNode<S>, S> {
 
 		@Override
-		public ImmutableTreeNode<S> createNode(ImmutableTreeNode<S> parent, List<ImmutableTreeNode<S>> children,
-				S semantics) {
+		public ImmutableTreeNode<S> createNode(ImmutableTreeNode<S> parent, List<ImmutableTreeNode<S>> children, S semantics) {
 			return new ImmutableTreeNode<S>(parent, children, semantics);
 		}
 
@@ -47,8 +46,7 @@ public interface TreeNodeFactory<N extends TreeNode<N, S>, S extends TreeNodeSem
 	public static class Mutable<S extends TreeNodeSemantics<S>> implements TreeNodeFactory<MutableTreeNode<S>, S> {
 
 		@Override
-		public MutableTreeNode<S> createNode(MutableTreeNode<S> parent, List<MutableTreeNode<S>> children,
-				S semantics) {
+		public MutableTreeNode<S> createNode(MutableTreeNode<S> parent, List<MutableTreeNode<S>> children, S semantics) {
 			return new MutableTreeNode<S>(parent, children, semantics);
 		}
 
