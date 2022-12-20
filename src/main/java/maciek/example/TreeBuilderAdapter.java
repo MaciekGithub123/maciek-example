@@ -18,7 +18,7 @@ public class TreeBuilderAdapter<V> {
 	}
 
 	/**
-	 * Creates the builder and start building a tree from given root.
+	 * Adapts tree transformation.
 	 */
 	public static final <V> TreeBuilderAdapter<V> adapt(TreeTransformation<TreeNodeSemanticsAdapter<V>> treeTransformation) {
 		return new TreeBuilderAdapter<V>(treeTransformation);
