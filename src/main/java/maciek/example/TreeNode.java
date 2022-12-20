@@ -62,7 +62,7 @@ public interface TreeNode<N extends TreeNode<N, S>, S extends TreeNodeSemantics<
 	int depth();
 
 	/**
-	 * Copies the subtree containing this node and its descendants.
+	 * The subtree containing this node and its descendants.
 	 */
 	ImmutableTree<S> subtree();
 

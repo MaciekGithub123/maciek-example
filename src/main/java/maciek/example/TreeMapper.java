@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.function.BiFunction;
 
 /**
- * Maps the tree structure and semantics to different implementation.
+ * Maps the tree structure and semantics to a different implementation.
  * 
  * @param <T> tree type
  * @param <N> node type
@@ -19,7 +19,7 @@ public class TreeMapper<T extends Tree<T, N, S>, N extends TreeNode<N, S>, S ext
 	private BiFunction<N, TreeSnapshots<S>, T> treeConstructor;
 
 	/**
-	 * The node factory to be use din mapped tree.
+	 * The new node factory.
 	 */
 	private TreeNodeFactory<N, S> nodeFactory;
 

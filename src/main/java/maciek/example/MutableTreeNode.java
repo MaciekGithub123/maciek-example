@@ -2,9 +2,8 @@ package maciek.example;
 
 import java.util.List;
 
-// ok
 /**
- * TreeNode implementation for tree which structure may be modified.
+ * A tree node implementation for tree which structure may be modified.
  *
  * @param <S> semantics type
  */

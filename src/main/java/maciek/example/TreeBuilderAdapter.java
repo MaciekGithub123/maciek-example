@@ -3,7 +3,7 @@ package maciek.example;
 import static maciek.example.TreeNodeSemanticsAdapter.val;
 
 /**
- * Tree builder adapter for simple values that don't implement TreeNodeSemantics.
+ * Tree builder adapter for simple values semantics that doesn't even implement the TreeNodeSemantics interface.
  * 
  * @see {@link TreeBuilder}
  */

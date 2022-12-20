@@ -7,10 +7,9 @@ import java.util.Map;
  * <p>
  * Safe to use and optimized for tree querying.
  * <p>
- * Using tree instead of tree node as a method parameter expresses better that it is IN parameter and
- * won't be modified.
+ * Using immutable tree as a method parameter expresses better that it is IN parameter and won't be modified.
  * <p>
- * Provides equals and hashcode methods.
+ * Provides equals and hashcode.
  * 
  * @param <S> semantics type
  */

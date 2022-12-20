@@ -3,7 +3,7 @@ package maciek.example;
 import java.util.List;
 
 /**
- * Immutable TreeNode implementation.
+ * Immutable tree node implementation.
  * <p>
  * Safe to use and optimized for tree querying.
  *

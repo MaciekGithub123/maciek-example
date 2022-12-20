@@ -3,7 +3,7 @@ package maciek.example;
 import java.util.Objects;
 
 /**
- * Adapter for very simple immutable value-like semantics.
+ * Adapter for very simple immutable value-like semantics that doesn't even implement the TreeNodeSemantics interface.
  *
  * @param <V> the actual value
  */
