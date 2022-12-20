@@ -33,18 +33,12 @@ public abstract class AbstractTreeNode<N extends AbstractTreeNode<N, S>, S exten
 	protected int depth;
 
 	/**
-	 * The factory that created this tree node.
-	 */
-	protected TreeNodeFactory<N, S> nodeFactory;
-
-	/**
 	 * Constructor for subclasses.
 	 * 
 	 * @param children    the actual children list
 	 * @param semantics   the semantics copied on set
-	 * @param nodeFactory the node factory that created this node
 	 */
-	protected AbstractTreeNode(N parent, List<N> children, S semantics, TreeNodeFactory<N, S> nodeFactory) {
+	protected AbstractTreeNode(N parent, List<N> children, S semantics) {
 		p = parent;
 		ch = children;
 		s = semantics.copy(this);

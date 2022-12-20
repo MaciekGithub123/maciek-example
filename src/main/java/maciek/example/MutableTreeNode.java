@@ -12,12 +12,8 @@ public class MutableTreeNode<S extends TreeNodeSemantics<S>> extends AbstractTre
 	/**
 	 * Protected constructor. Use the factory instead.
 	 */
-	protected MutableTreeNode(
-			MutableTreeNode<S> parent,
-			List<MutableTreeNode<S>> children,
-			S semantics,
-			TreeNodeFactory<MutableTreeNode<S>, S> nodeFactory) {
-		super(parent, children, semantics, nodeFactory);
+	protected MutableTreeNode(MutableTreeNode<S> parent, List<MutableTreeNode<S>> children, S semantics) {
+		super(parent, children, semantics);
 	}
 
 	@Override
@@ -28,8 +24,8 @@ public class MutableTreeNode<S extends TreeNodeSemantics<S>> extends AbstractTre
 	/**
 	 * Sets this subtree parent and adds this as its child at given index.
 	 * <p>
-	 * For null parent parameter the subtree is removed from the parent tree. The child index parameter is
-	 * then ignored.
+	 * For null parent parameter the subtree is removed from the parent tree. The
+	 * child index parameter is then ignored.
 	 */
 	public void setParent(MutableTreeNode<S> parent, int childIdx) {
 		if (parent == p && childIndex() == childIdx) {
@@ -82,7 +78,5 @@ public class MutableTreeNode<S extends TreeNodeSemantics<S>> extends AbstractTre
 
 		child.setParent(null, -1);
 	}
-	
-
 
 }

@@ -15,12 +15,12 @@ public class ImmutableTreeNode<S extends TreeNodeSemantics<S>> extends AbstractT
 	 * The root cache.
 	 */
 	private ImmutableTreeNode<S> rootCache;
-	
+
 	/**
 	 * The left sibling cache.
 	 */
 	private ImmutableTreeNode<S> leftSiblingCache;
-	
+
 	/**
 	 * The right sibling cache.
 	 */
@@ -39,13 +39,8 @@ public class ImmutableTreeNode<S extends TreeNodeSemantics<S>> extends AbstractT
 	/**
 	 * Protected constructor. Use the factory instead.
 	 */
-	protected ImmutableTreeNode(
-			ImmutableTreeNode<S> parent,
-			List<ImmutableTreeNode<S>> children,
-			S semantics,
-			TreeNodeFactory<ImmutableTreeNode<S>, S> nodeFactory) {
-		
-		super(parent, children, semantics, nodeFactory);
+	protected ImmutableTreeNode(ImmutableTreeNode<S> parent, List<ImmutableTreeNode<S>> children, S semantics) {
+		super(parent, children, semantics);
 	}
 
 	@Override
@@ -60,7 +55,7 @@ public class ImmutableTreeNode<S extends TreeNodeSemantics<S>> extends AbstractT
 		}
 		return rootCache = super.root();
 	}
-	
+
 	@Override
 	public ImmutableTreeNode<S> leftSibling() {
 		if (leftSiblingCache != null) {
@@ -68,7 +63,7 @@ public class ImmutableTreeNode<S extends TreeNodeSemantics<S>> extends AbstractT
 		}
 		return leftSiblingCache = super.leftSibling();
 	}
-	
+
 	@Override
 	public ImmutableTreeNode<S> rightSibling() {
 		if (rightSiblingCache != null) {
