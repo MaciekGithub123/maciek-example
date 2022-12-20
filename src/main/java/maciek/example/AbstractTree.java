@@ -56,11 +56,11 @@ public abstract class AbstractTree<T extends Tree<T, N, S>, N extends TreeNode<N
 	}
 
 	@Override
-	public List<N> recentlyAdded(int stagesAgo) {
+	public List<N> recentlyAdded(int snapshotsAgo) {
 
 		List<TreePath> prevPaths = treeSnapshots.all()
 				.stream()
-				.limit(stagesAgo)
+				.limit(snapshotsAgo)
 				.flatMap(t -> t.nodes().stream())
 				.map(TreeNode::pathFromRoot)
 				.distinct()

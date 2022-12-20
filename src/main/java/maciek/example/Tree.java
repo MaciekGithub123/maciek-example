@@ -47,9 +47,9 @@ public interface Tree<T extends Tree<T, N, S>, N extends TreeNode<N, S>, S exten
 	/**
 	 * The nodes added only in recent staged,
 	 * 
-	 * @param stagesAgo how many recent stages are to be considered
+	 * @param snapshotsAgo how many recent stages are to be considered
 	 */
-	List<N> recentlyAdded(int stagesAgo);
+	List<N> recentlyAdded(int snapshotsAgo);
 
 	/**
 	 * Copies the tree.
