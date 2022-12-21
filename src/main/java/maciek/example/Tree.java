@@ -45,9 +45,9 @@ public interface Tree<T extends Tree<T, N, S>, N extends TreeNode<N, S>, S exten
 	Map<TreePath, S> asMap();
 
 	/**
-	 * The nodes added only in recent staged,
+	 * The nodes added only in recent transformations,
 	 * 
-	 * @param snapshotsAgo how many recent stages are to be considered
+	 * @param snapshotsAgo how many recent transformations are to be considered
 	 */
 	List<N> recentlyAdded(int snapshotsAgo);
 

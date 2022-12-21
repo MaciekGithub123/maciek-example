@@ -28,7 +28,7 @@ public abstract class AbstractTree<T extends Tree<T, N, S>, N extends TreeNode<N
 	/**
 	 * Protected constructor.
 	 * 
-	 * @param treeSnapshots the tree history copied on set
+	 * @param treeSnapshots the tree history, copied on set
 	 */
 	protected AbstractTree(N root, TreeSnapshots<S> treeSnapshots) {
 		this.root = root;
