@@ -99,11 +99,11 @@ public abstract class AbstractTreeNode<N extends AbstractTreeNode<N, S>, S exten
 
 	@Override
 	public List<? extends N> descendants() {
+		
+		LinkedList<N> desc = new LinkedList<>();
+		desc.addAll(ch);
 
-		List<N> desc = children()
-				.stream()
-				.flatMap(ch -> ch.children().stream())
-				.collect(Collectors.toList());
+		ch.stream().flatMap(ch -> ch.descendants().stream()).forEach(desc::add);
 
 		return desc;
 	}
