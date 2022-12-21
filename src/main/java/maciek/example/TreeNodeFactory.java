@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Factory for the tree nodes.
+ * Factory for tree node.
  * <p>
  * Defines tree implementation details unrelated to the tree structure.
  */
