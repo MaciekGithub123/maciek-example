@@ -34,7 +34,7 @@ public class TreeMapper<T extends Tree<T, N, S>, N extends TreeNode<N, S>, S ext
 	/**
 	 * Maps the subtree.
 	 * 
-	 * @param subtreeRoot a subtree which structure and semantics is to be mapped.
+	 * @param tree a tree which structure and semantics is to be mapped.
 	 */
 	public T map(Tree<?, ?, S> tree) {
 		return map(tree.root(), tree.treeSnapshots());
@@ -44,6 +44,7 @@ public class TreeMapper<T extends Tree<T, N, S>, N extends TreeNode<N, S>, S ext
 	 * Maps the subtree.
 	 * 
 	 * @param subtreeRoot a subtree which structure and semantics is to be mapped.
+	 * @param treeSnapshots the tree history to be set on the new tree
 	 */
 	public T map(TreeNode<?, S> subtreeRoot, TreeSnapshots<S> treeSnapshots) {
 		return treeConstructor.apply(mapSubtree(subtreeRoot, null), treeSnapshots);
