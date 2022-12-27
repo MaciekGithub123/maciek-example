@@ -1,4 +1,4 @@
-package maciek.example;
+package maciek.tree;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,9 +7,9 @@ import java.util.function.BiFunction;
 /**
  * Maps the tree structure and semantics to a different implementation.
  * 
- * @param <T> tree type
- * @param <N> node type
- * @param <S> semantics type
+ * @param <T> the target tree type
+ * @param <N> the target tree node type
+ * @param <S> the target tree nodes semantics type
  */
 public class TreeMapper<T extends Tree<T, N, S>, N extends TreeNode<N, S>, S extends TreeNodeSemantics<S>> {
 

@@ -1,6 +1,6 @@
-package maciek.example;
+package maciek.tree;
 
-import static maciek.example.TreeNodeSemanticsAdapter.val;
+import static maciek.tree.TreeNodeSemanticsAdapter.val;
 
 /**
  * Tree builder adapter for simple values semantics that doesn't even implement the TreeNodeSemantics interface.
@@ -9,18 +9,18 @@ import static maciek.example.TreeNodeSemanticsAdapter.val;
  */
 public class TreeBuilderAdapter<V> {
 
-	private TreeTransformation<TreeNodeSemanticsAdapter<V>> builder;
+	private TreeTransformer<TreeNodeSemanticsAdapter<V>> builder;
 
 	// modify
 
-	public TreeBuilderAdapter(TreeTransformation<TreeNodeSemanticsAdapter<V>> builder) {
+	public TreeBuilderAdapter(TreeTransformer<TreeNodeSemanticsAdapter<V>> builder) {
 		this.builder = builder;
 	}
 
 	/**
 	 * Adapts tree transformation.
 	 */
-	public static final <V> TreeBuilderAdapter<V> adapt(TreeTransformation<TreeNodeSemanticsAdapter<V>> treeTransformation) {
+	public static final <V> TreeBuilderAdapter<V> adapt(TreeTransformer<TreeNodeSemanticsAdapter<V>> treeTransformation) {
 		return new TreeBuilderAdapter<V>(treeTransformation);
 	}
 

@@ -1,12 +1,12 @@
-package maciek.example;
+package maciek.tree;
 
 import java.util.List;
 
 /**
  * A basic element in tree structure. The node has semantics assigned.
  * 
- * @param <N> tree node type
- * @param <S> semantics type
+ * @param <N> the node type
+ * @param <S> the semantics type
  */
 public interface TreeNode<N extends TreeNode<N, S>, S extends TreeNodeSemantics<S>> {
 

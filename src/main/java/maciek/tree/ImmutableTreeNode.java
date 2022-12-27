@@ -1,4 +1,4 @@
-package maciek.example;
+package maciek.tree;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import java.util.List;
  * <p>
  * Safe to use and optimized for tree querying.
  *
- * @param <S> semantics type
+ * @param <S> the tree nodes semantics type
  */
 public class ImmutableTreeNode<S extends TreeNodeSemantics<S>> extends AbstractTreeNode<ImmutableTreeNode<S>, S> {
 

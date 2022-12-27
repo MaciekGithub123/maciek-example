@@ -1,4 +1,4 @@
-package maciek.example;
+package maciek.tree;
 
 
 /**

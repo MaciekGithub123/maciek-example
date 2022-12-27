@@ -1,4 +1,4 @@
-package maciek.example;
+package maciek.tree;
 
 import java.util.List;
 import java.util.Map;
@@ -20,7 +20,7 @@ import java.util.Map;
  * 
  * @param <T> this tree type
  * @param <N> this tree nodes type
- * @param <S> semantics type
+ * @param <S> this tree nodes semantics type
  */
 public interface Tree<T extends Tree<T, N, S>, N extends TreeNode<N, S>, S extends TreeNodeSemantics<S>> extends Iterable<N> {
 
@@ -59,7 +59,7 @@ public interface Tree<T extends Tree<T, N, S>, N extends TreeNode<N, S>, S exten
 	/**
 	 * Starts the tree transformation.
 	 */
-	TreeTransformation<S> transform();
+	TreeTransformer<S> transform();
 	
 	/**
 	 * Maps the tree structure and semantics to a different tree implementation.

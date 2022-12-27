@@ -1,11 +1,11 @@
-package maciek.example;
+package maciek.tree;
 
 /**
  * A tree with mutable tree structure.
  * <p>
  * The nodes of this tree can be added, removed or moved.
  * 
- * @param <S> semantics type
+ * @param <S> the tree nodes semantics type
  */
 public class MutableTree<S extends TreeNodeSemantics<S>> extends AbstractTree<MutableTree<S>, MutableTreeNode<S>, S> {
 	

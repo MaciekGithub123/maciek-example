@@ -1,4 +1,4 @@
-package maciek.example;
+package maciek.tree;
 
 import java.util.Iterator;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.stream.Stream;
  * 
  * @param <T> this tree type
  * @param <N> this tree nodes type
- * @param <S> semantics type
+ * @param <S> this tree nodes semantics type
  */
 public abstract class AbstractTree<T extends Tree<T, N, S>, N extends TreeNode<N, S>, S extends TreeNodeSemantics<S>> implements Tree<T, N, S> {
 
@@ -75,7 +75,7 @@ public abstract class AbstractTree<T extends Tree<T, N, S>, N extends TreeNode<N
 	}
 
 	@Override
-	public TreeTransformation<S> transform() {
+	public TreeTransformer<S> transform() {
 		return new TreeBuilder<>(this);
 	}
 

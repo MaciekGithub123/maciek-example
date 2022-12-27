@@ -1,4 +1,4 @@
-package maciek.example;
+package maciek.tree;
 
 import java.util.Map;
 
@@ -9,9 +9,9 @@ import java.util.Map;
  * <p>
  * Using immutable tree as a method parameter expresses better that it is IN parameter and won't be modified.
  * <p>
- * Provides equals and hashcode.
+ * Provides equals and hashcode. 
  * 
- * @param <S> semantics type
+ * @param <S> the tree nodes semantics type
  */
 public class ImmutableTree<S extends TreeNodeSemantics<S>> extends AbstractTree<ImmutableTree<S>, ImmutableTreeNode<S>, S> {
 	
