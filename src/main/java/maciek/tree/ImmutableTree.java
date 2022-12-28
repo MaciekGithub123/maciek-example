@@ -10,8 +10,6 @@ import java.util.Map;
  * Using immutable tree as a method parameter expresses better that it is IN parameter and won't be modified.
  * <p>
  * Provides equals and hashcode. 
- * 
- * @param <S> the tree nodes semantics type
  */
 public class ImmutableTree<S extends TreeNodeSemantics<S>> extends AbstractTree<ImmutableTree<S>, ImmutableTreeNode<S>, S> {
 	

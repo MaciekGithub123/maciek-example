@@ -5,8 +5,7 @@ import java.util.List;
 /**
  * A basic element in tree structure. The node has semantics assigned.
  * 
- * @param <N> the node type
- * @param <S> the semantics type
+ * @param <N> the tree node type, for getting other tree nodes
  */
 public interface TreeNode<N extends TreeNode<N, S>, S extends TreeNodeSemantics<S>> {
 

@@ -8,12 +8,9 @@ import java.util.stream.Stream;
 
 /**
  * Abstract tree implementation.
- * 
- * @param <T> this tree type
- * @param <N> this tree nodes type
- * @param <S> this tree nodes semantics type
  */
-public abstract class AbstractTree<T extends Tree<T, N, S>, N extends TreeNode<N, S>, S extends TreeNodeSemantics<S>> implements Tree<T, N, S> {
+public abstract class AbstractTree<T extends Tree<T, N, S>, N extends TreeNode<N, S>, S extends TreeNodeSemantics<S>>
+		implements Tree<T, N, S> {
 
 	/**
 	 * The tree snapshots.
@@ -49,7 +46,7 @@ public abstract class AbstractTree<T extends Tree<T, N, S>, N extends TreeNode<N
 	public List<N> nodes() {
 		return Stream.concat(Stream.of(root), root.descendants().stream()).collect(Collectors.toList());
 	}
-	
+
 	@Override
 	public Map<TreePath, S> asMap() {
 		return nodes().stream().collect(Collectors.toMap(n -> n.pathFromRoot(), n -> n.semantics()));
@@ -75,7 +72,7 @@ public abstract class AbstractTree<T extends Tree<T, N, S>, N extends TreeNode<N
 	}
 
 	@Override
-	public TreeTransformer<S> transform() {
+	public TreeBuilder<S> transform() {
 		return new TreeBuilder<>(this);
 	}
 
@@ -88,5 +85,5 @@ public abstract class AbstractTree<T extends Tree<T, N, S>, N extends TreeNode<N
 	public Iterator<N> iterator() {
 		return nodes().iterator();
 	}
-	
+
 }

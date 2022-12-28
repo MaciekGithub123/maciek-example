@@ -14,7 +14,7 @@ public class TreeNodeQuery<N extends TreeNode<N, S>, S extends TreeNodeSemantics
 	private Predicate<N> predicate;
 
 	/**
-	 * Determines the precedence for nodes fulfilling the predicate.
+	 * Determines the precedence if multiple nodes fulfills the predicate.
 	 */
 	private Comparator<N> comparator;
 

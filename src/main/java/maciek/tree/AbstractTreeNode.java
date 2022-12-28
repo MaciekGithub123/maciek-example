@@ -5,9 +5,6 @@ import java.util.List;
 
 /**
  * An abstract implementation of TreeNode.
- * 
- * @param <N> this node type
- * @param <S> semantics type
  */
 public abstract class AbstractTreeNode<N extends AbstractTreeNode<N, S>, S extends TreeNodeSemantics<S>> implements TreeNode<N, S> {
 

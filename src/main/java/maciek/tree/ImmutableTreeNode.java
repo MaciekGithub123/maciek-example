@@ -6,8 +6,6 @@ import java.util.List;
  * Immutable tree node implementation.
  * <p>
  * Safe to use and optimized for tree querying.
- *
- * @param <S> the tree nodes semantics type
  */
 public class ImmutableTreeNode<S extends TreeNodeSemantics<S>> extends AbstractTreeNode<ImmutableTreeNode<S>, S> {
 

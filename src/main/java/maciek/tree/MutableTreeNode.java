@@ -4,8 +4,6 @@ import java.util.List;
 
 /**
  * A tree node implementation for tree which structure may be modified.
- *
- * @param <S> the tree nodes semantics type
  */
 public class MutableTreeNode<S extends TreeNodeSemantics<S>> extends AbstractTreeNode<MutableTreeNode<S>, S> {
 

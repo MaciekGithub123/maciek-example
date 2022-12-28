@@ -17,10 +17,6 @@ import java.util.Map;
  * <p>
  * Using tree instead of tree node as a method parameter expresses better that the parameter represents
  * the whole tree instead e.g. node, subtree or other tree part.
- * 
- * @param <T> this tree type
- * @param <N> this tree nodes type
- * @param <S> this tree nodes semantics type
  */
 public interface Tree<T extends Tree<T, N, S>, N extends TreeNode<N, S>, S extends TreeNodeSemantics<S>> extends Iterable<N> {
 
@@ -59,7 +55,7 @@ public interface Tree<T extends Tree<T, N, S>, N extends TreeNode<N, S>, S exten
 	/**
 	 * Starts the tree transformation.
 	 */
-	TreeTransformer<S> transform();
+	TreeBuilder<S> transform();
 	
 	/**
 	 * Maps the tree structure and semantics to a different tree implementation.

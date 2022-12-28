@@ -1,15 +1,12 @@
 package maciek.tree;
 
 /**
- * A location of a node in the tree.
- * 
- * @param <N> the tree nodes type
- * @param <S> the node semantics type
+ * Defines a tree node location in the tree.
  */
 public interface TreeLocation<N extends TreeNode<N, S>, S extends TreeNodeSemantics<S>> {
 
 	/**
-	 * Gets a node at the location in the tree.
+	 * Gets from the tree a tree node at the tree location.
 	 */
 	N get(Tree<?, N, S> tree);
 
