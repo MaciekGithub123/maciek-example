@@ -32,5 +32,10 @@ public class MutableTree<S extends TreeNodeSemantics<S>> extends AbstractTree<Mu
 	public MutableTree<S> copy() {
 		return map(mapper());
 	}
+	
+	@Override
+	public MutableTree<S> mutable() {
+		return this;
+	}
 
 }

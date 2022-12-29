@@ -50,6 +50,11 @@ public class ImmutableTree<S extends TreeNodeSemantics<S>> extends AbstractTree<
 	}
 	
 	@Override
+	public ImmutableTree<S> immutable() {
+		return this;
+	}
+	
+	@Override
 	public int hashCode() {
 		return map.hashCode();
 	}

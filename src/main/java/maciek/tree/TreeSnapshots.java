@@ -28,18 +28,27 @@ public class TreeSnapshots<S extends TreeNodeSemantics<S>> implements Iterable<I
 	public TreeSnapshots(List<ImmutableTree<S>> list) {
 		this.snapshots = new LinkedList<>(list);
 	}
-
+	
 	/**
-	 * Takes snapshot.
-	 * 
-	 * @this for method chaining
+	 * Copies the tree snapshots and adds the new one.
 	 */
-	public TreeSnapshots<S> takeSnapshot(Tree<?, ?, S> snapshot) {
+	public TreeSnapshots<S> copyAndTakeSanpshot(ImmutableTree<S> snapshot) {
+		
 		if (!snapshots.isEmpty() && snapshots.get(0).equals(snapshot)) {
 			return this;
 		}
-		snapshots.add(0, snapshot.map(ImmutableTree.mapper()));
-		return this;
+		
+		LinkedList<ImmutableTree<S>> listCopy = new LinkedList<>(snapshots);
+		listCopy.add(0, snapshot);
+		
+		return new TreeSnapshots<>(listCopy);
+	}
+
+	/**
+	 * Copies the tree snapshots and adds the new one.
+	 */
+	public TreeSnapshots<S> copyAndTakeSanpshot(Tree<?, ?, S> snapshot) {
+		return copyAndTakeSanpshot(snapshot.immutable());
 	}
 
 	/**
@@ -54,13 +63,6 @@ public class TreeSnapshots<S extends TreeNodeSemantics<S>> implements Iterable<I
 	 */
 	public List<ImmutableTree<S>> all() {
 		return List.copyOf(snapshots);
-	}
-
-	/**
-	 * Copies the whole snapshot collection.
-	 */
-	public TreeSnapshots<S> copy() {
-		return new TreeSnapshots<>(snapshots);
 	}
 
 	@Override

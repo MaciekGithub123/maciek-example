@@ -54,7 +54,6 @@ public interface TreeNode<N extends TreeNode<N, S>, S extends TreeNodeSemantics<
 	 */
 	TreePath pathFromRoot();
 
-	// height?
 	/**
 	 * The distance between this node and the root.
 	 */
