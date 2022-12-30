@@ -1,13 +1,19 @@
 package maciek.tree;
 
 /**
- * Defines a tree node location in the tree.
+ * Defines a location in the tree.
+ * <p>
+ * If location is present in the tree it produces absolute path.
+ * <p>
+ * The location can point to a node or to an empty place.
  */
-public interface TreeLocation<N extends TreeNode<N, S>, S extends TreeNodeSemantics<S>> {
-
+public interface TreeLocation<S extends TreeNodeSemantics<S>> {
+	
 	/**
-	 * Gets from the tree a tree node at the tree location.
+	 * Gets absolute path of the location.
+	 * <p>
+	 * Can be null if given location doesn't exist in the tree. 
 	 */
-	N get(Tree<?, N, S> tree);
+	AbsoluteTreePath<S> get(Tree<?, ?, S> tree);
 
 }

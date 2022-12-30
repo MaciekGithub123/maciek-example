@@ -10,5 +10,7 @@ package maciek.tree;
 public class TreeNodeStream<N extends TreeNode<N, S>, S extends TreeNodeSemantics<S>> {
 	
 	TreeNodeStream<N, S> filter(Predicate<N> predicate);
+	
+	TreeNodeStream<N, S> filter(Predicate<N> predicate);
 
 }

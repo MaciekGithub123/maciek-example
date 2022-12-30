@@ -4,24 +4,32 @@ import java.util.Comparator;
 import java.util.function.Predicate;
 
 /**
- * A location in the tree determined by a the tree node predicate.
+ * A location in the tree determined by a tree node query, that is a tree node predicate and a tree node
+ * comparator.
  */
-public class TreeNodeQuery<N extends TreeNode<N, S>, S extends TreeNodeSemantics<S>> implements TreeLocation<N, S> {
+public class TreeNodeQuery<S extends TreeNodeSemantics<S>> implements TreeLocation<S> {
 
 	/**
 	 * Predicate the queried node must fulfill.
 	 */
-	private Predicate<N> predicate;
+	private Predicate<TreeNode<?, S>> predicate;
 
 	/**
 	 * Determines the precedence if multiple nodes fulfills the predicate.
 	 */
-	private Comparator<N> comparator;
+	private Comparator<TreeNode<?, S>> comparator;
 
 	@Override
-	public N get(Tree<?, N, S> tree) {
+	public AbsoluteTreePath<S> get(Tree<?, ?, S> tree) {
+		return queryNode(tree).pathFromRoot();
+	}
 
-		N node = tree.nodes()
+	/**
+	 * Queries for the tree node.
+	 */
+	public TreeNode<?, S> queryNode(Tree<?, ?, S> tree) {
+
+		TreeNode<?, S> node = tree.nodes()
 				.stream()
 				.filter(predicate)
 				.sorted(comparator)

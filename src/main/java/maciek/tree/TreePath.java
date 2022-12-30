@@ -8,12 +8,9 @@ import java.util.Objects;
 /**
  * A path in the tree.
  * <p>
- * The path is made up of steps. A step toward a child is indicated by the child index. A step toward the
- * parent is indicated as -1.
+ * The path is made of consecutive steps which represents direct relation between nodes.
  * <p>
- * E.g on for the following example tree the path from the root to n5 is [2, 0] and from the n4 to n5 is
- * [-1, -1, 2, 0].
- * 
+ * E.g. in the tree below, the path from the root to n5 is ->child(2)->child(0)
  * <pre>
  * root -|- n1
  *       |
@@ -24,22 +21,36 @@ import java.util.Objects;
  * </pre>
  */
 public class TreePath implements Iterable<Integer>, Comparable<TreePath> {
+	
 
 	/**
-	 * The path defined by the consecutive child indexes.
+	 * The path defined by the consecutive steps.
 	 */
-	private final List<Integer> consecutiveIndexes;
+	protected final List<TreePathStep> steps;
 
 	/**
-	 * @param consecutiveIndexes {@link #consecutiveIndexes}
+	 * @param steps {@link #consecutiveIndexes}
 	 */
-	public TreePath(List<Integer> consecutiveIndexes) {
-		this.consecutiveIndexes = List.copyOf(consecutiveIndexes);
+	public TreePath(List<TreePathStep> steps) {
+		this.steps = List.copyOf(steps);
 	}
 
-	@Override
-	public Iterator<Integer> iterator() {
-		return consecutiveIndexes.iterator();
+	/**
+	 * Constructor for subclasses extending TreePath contract.
+	 */
+	protected TreePath(TreePath treePath) {
+		this.steps = List.copyOf(treePath.steps);
+	}
+
+	/**
+	 * Follows the tree path starting from given node.
+	 */
+	public <N extends TreeNode<N, S>, S extends TreeNodeSemantics<S>> N followFrom(N node) {
+
+		for (TreePathStep step : steps) {
+			node = step.getNextNode(node);
+		}
+		return node;
 	}
 
 	/**
@@ -54,26 +65,31 @@ public class TreePath implements Iterable<Integer>, Comparable<TreePath> {
 	}
 
 	/**
-	 * Follows the tree path starting from given node.
+	 * Creates tree path with last element removed.
 	 */
-	public <N extends TreeNode<N, S>, S extends TreeNodeSemantics<S>> N followFrom(N node) {
+	public TreePath removeStep() {
 
-		for (Integer idx : this) {
-			if (idx == -1) {
-				node = node.parent();
-				if (node == null) {
-					return null;
-				}
-				continue;
-			}
-			if (idx < node.children().size() || idx > 0) {
-				node = node.children().get(idx);
-				continue;
-			}
-			return null;
-		}
+		LinkedList<Integer> indexes = new LinkedList<>(consecutiveIndexes);
+		indexes.removeLast();
 
-		return node;
+		return new TreePath(indexes);
+	}
+
+	/**
+	 * Creates tree path with last element changed.
+	 */
+	public TreePath replaceStep(Integer replacementStep) {
+
+		LinkedList<Integer> indexes = new LinkedList<>(consecutiveIndexes);
+		indexes.removeLast();
+		indexes.add(replacementStep);
+
+		return new TreePath(indexes);
+	}
+
+	@Override
+	public Iterator<Integer> iterator() {
+		return consecutiveIndexes.iterator();
 	}
 
 	/**
@@ -119,5 +135,5 @@ public class TreePath implements Iterable<Integer>, Comparable<TreePath> {
 
 		return Objects.equals(consecutiveIndexes, ((TreePath) obj).consecutiveIndexes);
 	}
-	
+
 }

@@ -19,16 +19,21 @@ public class TreeBuilder<S extends TreeNodeSemantics<S>> {
 	 * The tree mapper used internally by this builder.
 	 */
 	private final TreeMapper<MutableTree<S>, MutableTreeNode<S>, S> mapper = MutableTree.mapper();
-
+	
 	/**
 	 * The tree snapshots.
 	 */
 	private final TreeSnapshots<S> treeSnapshots;
+	
+	/**
+	 * The tree being built by this builder.
+	 */
+	private MutableTree<S> treeUnderConstruction;
 
 	/**
-	 * The current node to which the changes are applied.
+	 * The current tree location where the tree changes are applied.
 	 */
-	private TreeCursor<MutableTreeNode<S>, S> cursor;
+	private TreeCursor<S> cursor;
 
 	/**
 	 * Creates the builder with empty tree structure.
@@ -53,6 +58,13 @@ public class TreeBuilder<S extends TreeNodeSemantics<S>> {
 	public TreeBuilder<S> root(S semantics) {
 		cursor = new TreeCursor<>(nF.createNode(semantics));
 		return this;
+	}
+	
+	/**
+	 * Adds tree node to giventree location, if location exists.
+	 */
+	public TreeBuilder<S> addNode(TreeLocation<S> location) {
+		return null;
 	}
 
 	/**
@@ -125,7 +137,7 @@ public class TreeBuilder<S extends TreeNodeSemantics<S>> {
 	 * Moves the cursor to the removed subtree previous parent.
 	 */
 	public TreeBuilder<S> removeSubtree() {
-		moveCursor(c -> c.goToParent());
+		moveCursor(c -> c.parent());
 		cursor.getPrev().setParent(null, -1);
 		return this;
 	}

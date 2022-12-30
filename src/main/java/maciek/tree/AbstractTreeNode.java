@@ -105,9 +105,9 @@ public abstract class AbstractTreeNode<N extends AbstractTreeNode<N, S>, S exten
 	}
 
 	@Override
-	public TreePath pathFromRoot() {
+	public AbsoluteTreePath<S> pathFromRoot() {
 		if (parent() == null) {
-			return new TreePath(List.of());
+			return new AbsoluteTreePath<>(List.of());
 		}
 		return parent().pathFromRoot().addStep(parent().childIndex());
 	}

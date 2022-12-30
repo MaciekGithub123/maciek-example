@@ -52,7 +52,7 @@ public interface TreeNode<N extends TreeNode<N, S>, S extends TreeNodeSemantics<
 	/**
 	 * The path to this node from the root.
 	 */
-	TreePath pathFromRoot();
+	AbsoluteTreePath<S> pathFromRoot();
 
 	/**
 	 * The distance between this node and the root.
