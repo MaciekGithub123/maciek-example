@@ -44,7 +44,7 @@ public class TreeNodeRange<N extends TreeNode<N, S>, S extends TreeNodeSemantics
 	 */
 	private TreeNodeRange(N first, N last) {
 		int length = 0;
-		for (N n = first; n != last; n = n.rightSibling()) {
+		for (N n = first; n != last; n = n.right()) {
 			++length;
 		}
 		this.first = first;
@@ -59,11 +59,11 @@ public class TreeNodeRange<N extends TreeNode<N, S>, S extends TreeNodeSemantics
 		N n = first;
 		if (length < 1) {
 			for (int i = 1; i > length && n != null; i--) {
-				n = n.leftSibling();
+				n = n.left();
 			}
 		} else {
 			for (int i = 1; i < length && n != null; i++) {
-				n = n.rightSibling();
+				n = n.right();
 			}
 		}
 		this.first = first;
@@ -97,7 +97,7 @@ public class TreeNodeRange<N extends TreeNode<N, S>, S extends TreeNodeSemantics
 	 */
 	public List<N> nodes() {
 		List<N> list = new LinkedList<>();
-		for (N n = first; list.size() < length; n = n.rightSibling()) {
+		for (N n = first; list.size() < length; n = n.right()) {
 			list.add(n);
 		}
 		return list;

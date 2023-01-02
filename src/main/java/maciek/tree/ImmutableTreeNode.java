@@ -30,9 +30,9 @@ public class ImmutableTreeNode<S extends TreeNodeSemantics<S>> extends AbstractT
 	private List<? extends ImmutableTreeNode<S>> descendantsCache;
 
 	/**
-	 * The path from the root to this node cache.
+	 * The absolute tree path cache.
 	 */
-	private TreePath pathFromRootCache;
+	private AbsoluteTreePath absoluteTreePathCache;
 
 	/**
 	 * Protected constructor. Use the factory instead.
@@ -55,19 +55,19 @@ public class ImmutableTreeNode<S extends TreeNodeSemantics<S>> extends AbstractT
 	}
 
 	@Override
-	public ImmutableTreeNode<S> leftSibling() {
+	public ImmutableTreeNode<S> left() {
 		if (leftSiblingCache != null) {
 			return leftSiblingCache;
 		}
-		return leftSiblingCache = super.leftSibling();
+		return leftSiblingCache = super.left();
 	}
 
 	@Override
-	public ImmutableTreeNode<S> rightSibling() {
+	public ImmutableTreeNode<S> right() {
 		if (rightSiblingCache != null) {
 			return rightSiblingCache;
 		}
-		return rightSiblingCache = super.rightSibling();
+		return rightSiblingCache = super.right();
 	}
 
 	@Override
@@ -79,11 +79,11 @@ public class ImmutableTreeNode<S extends TreeNodeSemantics<S>> extends AbstractT
 	}
 
 	@Override
-	public TreePath pathFromRoot() {
-		if (pathFromRootCache != null) {
-			return pathFromRootCache;
+	public AbsoluteTreePath absoluteTreePath() {
+		if (absoluteTreePathCache != null) {
+			return absoluteTreePathCache;
 		}
-		return pathFromRootCache = super.pathFromRoot();
+		return absoluteTreePathCache = super.absoluteTreePath();
 	}
 
 }

@@ -3,26 +3,15 @@ package maciek.tree;
 import java.util.List;
 
 /**
- * A basic element in tree structure. The node has semantics assigned.
+ * A basic element in tree structure.
+ * <p>
+ * The node may have a single parent and multiple children.
+ * <p>
+ * The node has semantics assigned.
  * 
  * @param <N> the tree node type, for getting other tree nodes
  */
-public interface TreeNode<N extends TreeNode<N, S>, S extends TreeNodeSemantics<S>> {
-
-	/**
-	 * This node's parent.
-	 */
-	N parent();
-
-	/**
-	 * This node's left sibling.
-	 */
-	N leftSibling();
-
-	/**
-	 * This node's right sibling.
-	 */
-	N rightSibling();
+public interface TreeNode<N extends TreeNode<N, S>, S extends TreeNodeSemantics<S>> extends TreeNavigable<N> {
 
 	/**
 	 * This node's children list copy.
@@ -35,24 +24,14 @@ public interface TreeNode<N extends TreeNode<N, S>, S extends TreeNodeSemantics<
 	S semantics();
 
 	/**
-	 * The root of the tree this node belongs to.
-	 */
-	N root();
-
-	/**
-	 * The descendant of this node localized by the relative path.
-	 */
-	N descendant(TreePath relativePath);
-
-	/**
-	 * The node's descendants.
+	 * The descendants of this node.
 	 */
 	List<? extends N> descendants();
 
 	/**
-	 * The path to this node from the root.
+	 * The absolute tree path of this node.
 	 */
-	AbsoluteTreePath<S> pathFromRoot();
+	AbsoluteTreePath absoluteTreePath();
 
 	/**
 	 * The distance between this node and the root.

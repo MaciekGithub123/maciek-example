@@ -4,11 +4,13 @@ package maciek.tree;
  * A tree node pointer. Exposes method for traversing the tree.
  */
 public interface TreeCursor<S extends TreeNodeSemantics<S>> extends TreeLocation<S> {
+	
+	// TODO optional
 
 	/**
 	 * The pointer along given relative path from its current location.
 	 */
-	TreeCursor<S> find(TreePath path);
+	TreeCursor<S> find(AbsoluteTreePath path);
 
 	/**
 	 * The pointer indicating the root of the tree.

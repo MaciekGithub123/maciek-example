@@ -16,7 +16,7 @@ public class ImmutableTree<S extends TreeNodeSemantics<S>> extends AbstractTree<
 	/**
 	 * Map representation of the tree.
 	 */
-	private Map<TreePath, S> map = asMap();
+	private Map<AbsoluteTreePath, S> map = asMap();
 
 	/**
 	 * Protected constructor.
@@ -40,7 +40,7 @@ public class ImmutableTree<S extends TreeNodeSemantics<S>> extends AbstractTree<
 	}
 	
 	@Override
-	public Map<TreePath, S> asMap() {
+	public Map<AbsoluteTreePath, S> asMap() {
 		return map;
 	}
 

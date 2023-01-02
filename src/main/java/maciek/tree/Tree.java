@@ -93,8 +93,8 @@ public interface Tree<T extends Tree<T, N, S>, N extends TreeNode<N, S>, S exten
 	/**
 	 * The map representation of the tree.
 	 */
-	default Map<TreePath, S> asMap() {
-		return nodes().stream().collect(Collectors.toMap(n -> n.pathFromRoot(), n -> n.semantics()));
+	default Map<AbsoluteTreePath, S> asMap() {
+		return nodes().stream().collect(Collectors.toMap(n -> n.absoluteTreePath(), n -> n.semantics()));
 	}
 
 	/**
@@ -111,17 +111,17 @@ public interface Tree<T extends Tree<T, N, S>, N extends TreeNode<N, S>, S exten
 	 */
 	default List<N> recentlyAdded(int snapshotsAgo) {
 
-		List<TreePath> prevPaths = treeSnapshots().all()
+		List<AbsoluteTreePath> prevPaths = treeSnapshots().all()
 				.stream()
 				.limit(snapshotsAgo)
 				.flatMap(t -> t.nodes().stream())
-				.map(TreeNode::pathFromRoot)
+				.map(TreeNode::absoluteTreePath)
 				.distinct()
 				.collect(Collectors.toList());
 
 		List<N> recentlyAdded = nodes()
 				.stream()
-				.filter(n -> !prevPaths.contains(n.pathFromRoot()))
+				.filter(n -> !prevPaths.contains(n.absoluteTreePath()))
 				.collect(Collectors.toList());
 
 		return recentlyAdded;

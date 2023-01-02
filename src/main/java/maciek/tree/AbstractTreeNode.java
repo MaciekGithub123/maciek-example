@@ -51,9 +51,24 @@ public abstract class AbstractTreeNode<N extends AbstractTreeNode<N, S>, S exten
 	public N parent() {
 		return p;
 	}
+	
+	@Override
+	public N child(int idx) {
+		return ch.get(idx);
+	}
+	
+	@Override
+	public N lastChild() {
+		if (ch.isEmpty()) {
+			return null;
+		}
+		else {
+			return ch.get(ch.size() - 1);
+		}
+	}
 
 	@Override
-	public N leftSibling() {
+	public N left() {
 		if (p == null)
 			return null;
 
@@ -61,7 +76,7 @@ public abstract class AbstractTreeNode<N extends AbstractTreeNode<N, S>, S exten
 	}
 
 	@Override
-	public N rightSibling() {
+	public N right() {
 		if (p == null)
 			return null;
 
@@ -89,11 +104,6 @@ public abstract class AbstractTreeNode<N extends AbstractTreeNode<N, S>, S exten
 	}
 
 	@Override
-	public N descendant(TreePath relativePath) {
-		return relativePath.followFrom(getThis());
-	}
-
-	@Override
 	public List<? extends N> descendants() {
 		
 		LinkedList<N> desc = new LinkedList<>();
@@ -105,11 +115,12 @@ public abstract class AbstractTreeNode<N extends AbstractTreeNode<N, S>, S exten
 	}
 
 	@Override
-	public AbsoluteTreePath<S> pathFromRoot() {
-		if (parent() == null) {
-			return new AbsoluteTreePath<>(List.of());
+	public AbsoluteTreePath absoluteTreePath() {
+		LinkedList<Integer> path = new LinkedList<>();
+		for (N n = getThis(); n != null; n = n.p) {
+			path.addFirst(n.childIndex());
 		}
-		return parent().pathFromRoot().addStep(parent().childIndex());
+		return new AbsoluteTreePath(path);
 	}
 
 	@Override
@@ -118,13 +129,13 @@ public abstract class AbstractTreeNode<N extends AbstractTreeNode<N, S>, S exten
 	}
 
 	/**
-	 * Gets this node child index at its parent children list. Convenience method.
+	 * This node child index in its parent children list.
 	 */
 	public int childIndex() {
-		if (parent() == null) {
+		if (p == null) {
 			return -1;
 		}
-		return parent().children().indexOf(this);
+		return p.children().indexOf(this);
 	}
 
 }

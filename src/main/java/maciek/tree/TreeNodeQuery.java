@@ -21,7 +21,7 @@ public class TreeNodeQuery<S extends TreeNodeSemantics<S>> implements TreeLocati
 
 	@Override
 	public AbsoluteTreePath<S> get(Tree<?, ?, S> tree) {
-		return queryNode(tree).pathFromRoot();
+		return queryNode(tree).absoluteTreePath();
 	}
 
 	/**
