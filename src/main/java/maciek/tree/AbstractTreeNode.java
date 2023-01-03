@@ -46,6 +46,11 @@ public abstract class AbstractTreeNode<N extends AbstractTreeNode<N, S>, S exten
 	 * For this implementation to operate on actual implementation type instead of abstract type.
 	 */
 	protected abstract N getThis();
+	
+	@Override
+	public N path(AbsoluteTreePath absoluteTreePath) {
+		return absoluteTreePath.get(root());
+	}
 
 	@Override
 	public N parent() {

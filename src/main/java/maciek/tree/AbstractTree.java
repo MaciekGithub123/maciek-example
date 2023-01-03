@@ -3,19 +3,19 @@ package maciek.tree;
 /**
  * Abstract tree implementation.
  */
-public abstract class AbstractTree<T extends Tree<T, N, S>, N extends TreeNode<N, S>, S extends TreeNodeSemantics<S>>
+public abstract class AbstractTree<T extends AbstractTree<T, N, S>, N extends AbstractTreeNode<N, S>, S extends TreeNodeSemantics<S>>
 		implements Tree<T, N, S> {
 
 	/**
-	 * The tree snapshots.
+	 * The previous versions.
 	 */
 	private final TreeSnapshots<S> treeSnapshots;
 
 	/**
-	 * The tree root.
+	 * The root.
 	 */
 	private N root;
-	
+
 	/**
 	 * Creates the tree and takes it snapshot.
 	 * 
@@ -29,6 +29,11 @@ public abstract class AbstractTree<T extends Tree<T, N, S>, N extends TreeNode<N
 	@Override
 	public N root() {
 		return root;
+	}
+	
+	@Override
+	public N node(AbsoluteTreePath path) {
+		return path.get(this);
 	}
 
 	@Override

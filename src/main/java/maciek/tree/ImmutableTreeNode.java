@@ -1,5 +1,6 @@
 package maciek.tree;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -83,7 +84,7 @@ public class ImmutableTreeNode<S extends TreeNodeSemantics<S>> extends AbstractT
 		if (absoluteTreePathCache != null) {
 			return absoluteTreePathCache;
 		}
-		return absoluteTreePathCache = super.absoluteTreePath();
+		return absoluteTreePathCache = parent().absoluteTreePath().child(childIndex());
 	}
 
 }

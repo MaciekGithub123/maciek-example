@@ -1,6 +1,7 @@
 package maciek.tree;
 
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * A tree with immutable structure.
@@ -9,14 +10,20 @@ import java.util.Map;
  * <p>
  * Using immutable tree as a method parameter expresses better that it is IN parameter and won't be modified.
  * <p>
- * Provides equals and hashcode. 
+ * Provides equals and hashcode.
  */
-public class ImmutableTree<S extends TreeNodeSemantics<S>> extends AbstractTree<ImmutableTree<S>, ImmutableTreeNode<S>, S> {
+public class ImmutableTree<S extends TreeNodeSemantics<S>>
+		extends AbstractTree<ImmutableTree<S>, ImmutableTreeNode<S>, S> {
+
+	/**
+	 * The cache of tree nodes.
+	 */
+	private Map<AbsoluteTreePath, ImmutableTreeNode<S>> nodesCache;
 	
 	/**
-	 * Map representation of the tree.
+	 * The cache of tree semantics.
 	 */
-	private Map<AbsoluteTreePath, S> map = asMap();
+	private Map<AbsoluteTreePath, S> semanticsCache;
 
 	/**
 	 * Protected constructor.
@@ -38,27 +45,38 @@ public class ImmutableTree<S extends TreeNodeSemantics<S>> extends AbstractTree<
 	public static final <S extends TreeNodeSemantics<S>> TreeMapper<ImmutableTree<S>, ImmutableTreeNode<S>, S> mapper() {
 		return new TreeMapper<ImmutableTree<S>, ImmutableTreeNode<S>, S>(ImmutableTree::new, nodeFactory());
 	}
-	
+
+	@Override
+	public ImmutableTreeNode<S> node(AbsoluteTreePath path) {
+		if (nodesCache == null) {
+			nodesCache = nodes().stream().collect(Collectors.toMap(n -> n.absoluteTreePath(), n -> n));
+		}
+		return nodesCache.get(path);
+	}
+
 	@Override
 	public Map<AbsoluteTreePath, S> asMap() {
-		return map;
+		if (semanticsCache == null) {
+			semanticsCache = nodes().stream().collect(Collectors.toMap(n -> n.absoluteTreePath(), n -> n.semantics()));
+		}
+		return semanticsCache;
 	}
 
 	@Override
 	public ImmutableTree<S> copy() {
 		return this;
 	}
-	
+
 	@Override
 	public ImmutableTree<S> immutable() {
 		return this;
 	}
-	
+
 	@Override
 	public int hashCode() {
-		return map.hashCode();
+		return nodesCache.hashCode();
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null || !(obj instanceof ImmutableTree)) {
@@ -69,9 +87,8 @@ public class ImmutableTree<S extends TreeNodeSemantics<S>> extends AbstractTree<
 		}
 		@SuppressWarnings("unchecked")
 		ImmutableTree<S> o = (ImmutableTree<S>) obj;
-		
+
 		return asMap().equals(o.asMap());
 	}
-
 
 }

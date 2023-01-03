@@ -1,45 +1,91 @@
 package maciek.tree;
 
+import java.util.function.Consumer;
+
 /**
- * A tree node pointer. Exposes method for traversing the tree.
+ * A tree node pointer.
+ * <p>
+ * Exposes method for traversing the tree.
+ * <p>
+ * May indicate a null node.
+ * <p>
+ * Return itself for method chaining.
  */
-public interface TreeCursor<S extends TreeNodeSemantics<S>> extends TreeLocation<S> {
-	
-	// TODO optional
+public class TreeCursor<N extends TreeNode<N, S>, S extends TreeNodeSemantics<S>>
+		implements TreeLocation<S>, TreeNavigable<TreeCursor<N, S>> {
 
 	/**
-	 * The pointer along given relative path from its current location.
+	 * The traversed tree.
 	 */
-	TreeCursor<S> find(AbsoluteTreePath path);
+	private Tree<?, N, S> tree;
 
 	/**
-	 * The pointer indicating the root of the tree.
+	 * The current location.
 	 */
-	TreeCursor<S> root();
+	private AbsoluteTreePath currentLoc;
 
 	/**
-	 * The pointer indicating the parent of it current location.
+	 * Do something with the current node if the node at the current location exists.
 	 */
-	TreeCursor<S> parent();
+	public TreeCursor<N, S> forCurrentNode(Consumer<N> consumer) {
+		N n = tree.node(currentLoc);
+		if (n != null) {
+			consumer.accept(n);
+		}
+		return this;
+	}
 
-	/**
-	 * The pointer indicating the first child of it current location.
-	 */
-	TreeCursor<S> firstChild();
+	@Override
+	public TreeCursor<N, S> path(AbsoluteTreePath path) {
+		currentLoc = path;
+		return this;
+	}
 
-	/**
-	 * The pointer indicating the last child of it current location.
-	 */
-	TreeCursor<S> lastChild();
+	@Override
+	public TreeCursor<N, S> root() {
+		currentLoc = currentLoc.root();
+		return this;
+	}
 
-	/**
-	 * The pointer indicating the left sibling of it current location.
-	 */
-	TreeCursor<S> leftSibling();
+	@Override
+	public TreeCursor<N, S> parent() {
+		currentLoc = currentLoc.parent();
+		return this;
+	}
 
-	/**
-	 * The pointer indicating the right sibling of it current location.
-	 */
-	TreeCursor<S> rightSibling();
-	
+	@Override
+	public TreeCursor<N, S> child(int idx) {
+		currentLoc = currentLoc.child(idx);
+		return this;
+	}
+
+	@Override
+	public TreeCursor<N, S> lastChild() {
+		N n = tree.node(currentLoc);
+		if (n != null) {
+			N ch = n.lastChild();
+			if (ch != null) {
+				currentLoc = ch.absoluteTreePath();
+			}
+		}
+		return this;
+	}
+
+	@Override
+	public TreeCursor<N, S> left() {
+		currentLoc = currentLoc.left();
+		return this;
+	}
+
+	@Override
+	public TreeCursor<N, S> right() {
+		currentLoc = currentLoc.right();
+		return this;
+	}
+
+	@Override
+	public AbsoluteTreePath get(Tree<?, ?, S> tree) {
+		return currentLoc;
+	}
+
 }

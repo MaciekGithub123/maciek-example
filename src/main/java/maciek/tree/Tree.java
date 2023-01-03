@@ -7,7 +7,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * A tree of nodes with semantics assigned to the nodes.
+ * A semantic tree.
+ * <p>
+ * Each node can have single parent and multiple children. Each node can have semantics of given type
+ * assigned.
  * <p>
  * A semantic tree may be useful for:
  * <ul>
@@ -17,9 +20,6 @@ import java.util.stream.Stream;
  * <li>dynamic property objects (instead of maps),
  * </ul>
  * and many more.
- * <p>
- * Using tree instead of tree node as a method parameter expresses better that the parameter represents
- * the whole tree instead e.g. node, subtree or other tree part.
  */
 public interface Tree<T extends Tree<T, N, S>, N extends TreeNode<N, S>, S extends TreeNodeSemantics<S>>
 		extends Iterable<N> {
@@ -28,22 +28,27 @@ public interface Tree<T extends Tree<T, N, S>, N extends TreeNode<N, S>, S exten
 	 * The tree root.
 	 */
 	N root();
+	
+	/**
+	 * The tree node at given path.
+	 */
+	N node(AbsoluteTreePath path);
 
 	/**
 	 * The tree nodes stream.
 	 */
 	TreeNodeStream<N, S> stream();
-	
+
 	/**
 	 * The tree snapshots.
 	 */
 	TreeSnapshots<S> treeSnapshots();
-	
+
 	/**
 	 * The tree copy.
 	 */
 	T copy();
-	
+
 	/**
 	 * All the nodes of the tree.
 	 */
@@ -59,10 +64,10 @@ public interface Tree<T extends Tree<T, N, S>, N extends TreeNode<N, S>, S exten
 	}
 
 	/**
-	 * Copies the tree and performs the tree transformation.
+	 * Transforms the tree.
 	 */
-	default T transform(TreeTransformation<T, N, S> treeTransformation) {
-		return treeTransformation.transform(copy());
+	default ImmutableTree<S> transform(TreeTransformation<S> treeTransformation) {
+		return treeTransformation.transform(immutable());
 	}
 
 	/**
@@ -103,9 +108,9 @@ public interface Tree<T extends Tree<T, N, S>, N extends TreeNode<N, S>, S exten
 	default TreeBuilder<S> toBuilder() {
 		return new TreeBuilder<>(this);
 	}
-	
+
 	/**
-	 * The nodes added only in recent transformations,
+	 * The tree nodes added only in recent transformations.
 	 * 
 	 * @param snapshotsAgo how many recent transformations are to be considered
 	 */

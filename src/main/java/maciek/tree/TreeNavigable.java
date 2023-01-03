@@ -6,6 +6,11 @@ package maciek.tree;
 public interface TreeNavigable<TN extends TreeNavigable<TN>> {
 	
 	/**
+	 * Navigates to the path.
+	 */
+	TN path(AbsoluteTreePath absoluteTreePath);
+	
+	/**
 	 * Navigates to the root.
 	 */
 	TN root();
@@ -35,6 +40,4 @@ public interface TreeNavigable<TN extends TreeNavigable<TN>> {
 	 */
 	TN right();
 	
-	// TODO paths, maybe steps?
-
 }
