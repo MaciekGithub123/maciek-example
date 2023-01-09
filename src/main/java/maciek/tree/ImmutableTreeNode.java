@@ -1,10 +1,9 @@
 package maciek.tree;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Immutable tree node implementation.
+ * Immutable tree node.
  * <p>
  * Safe to use and optimized for tree querying.
  */
@@ -46,6 +45,14 @@ public class ImmutableTreeNode<S extends TreeNodeSemantics<S>> extends AbstractT
 	protected ImmutableTreeNode<S> getThis() {
 		return this;
 	}
+	
+	@Override
+	public AbsoluteTreePath path() {
+		if (absoluteTreePathCache != null) {
+			return absoluteTreePathCache;
+		}
+		return absoluteTreePathCache = parent().path().child(childIndex());
+	}
 
 	@Override
 	public ImmutableTreeNode<S> root() {
@@ -77,14 +84,6 @@ public class ImmutableTreeNode<S extends TreeNodeSemantics<S>> extends AbstractT
 			return descendantsCache;
 		}
 		return descendantsCache = super.descendants();
-	}
-
-	@Override
-	public AbsoluteTreePath absoluteTreePath() {
-		if (absoluteTreePathCache != null) {
-			return absoluteTreePathCache;
-		}
-		return absoluteTreePathCache = parent().absoluteTreePath().child(childIndex());
 	}
 
 }

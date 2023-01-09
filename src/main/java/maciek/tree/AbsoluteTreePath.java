@@ -6,13 +6,20 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * An path in the tree leading from the root to given node.
+ * An path in the tree from the root to given node.
  * <p>
- * The path consist of child indexes of ancestors of given node, starting from the root.
+ * Defines the location of the tree node.
+ * <p>
+ * The path consist of child indexes of consecutive ancestors of given node, starting from the root.
  * <p>
  * Can be thought of as a tree node address.
  */
 public class AbsoluteTreePath implements Comparable<AbsoluteTreePath>, TreeNavigable<AbsoluteTreePath> {
+
+	/**
+	 * A path to root.
+	 */
+	public static final AbsoluteTreePath ROOT = new AbsoluteTreePath(List.of());
 
 	/**
 	 * The consecutive ancestors child indexes.
@@ -50,7 +57,7 @@ public class AbsoluteTreePath implements Comparable<AbsoluteTreePath>, TreeNavig
 	/**
 	 * Compares the absolute tree paths.
 	 * <p>
-	 * Ancestors before descendants and left siblings before right.
+	 * The order is: ancestors before descendants and left siblings before right.
 	 */
 	@Override
 	public int compareTo(AbsoluteTreePath o) {
@@ -91,6 +98,11 @@ public class AbsoluteTreePath implements Comparable<AbsoluteTreePath>, TreeNavig
 	}
 
 	// navigation
+	
+	@Override
+	public AbsoluteTreePath path() {
+		return this;
+	}
 
 	/**
 	 * The given path.
@@ -162,5 +174,7 @@ public class AbsoluteTreePath implements Comparable<AbsoluteTreePath>, TreeNavig
 
 		return new AbsoluteTreePath(rightPath);
 	}
+
+
 
 }

@@ -19,7 +19,7 @@ public class ImmutableTree<S extends TreeNodeSemantics<S>>
 	 * The cache of tree nodes.
 	 */
 	private Map<AbsoluteTreePath, ImmutableTreeNode<S>> nodesCache;
-	
+
 	/**
 	 * The cache of tree semantics.
 	 */
@@ -49,7 +49,9 @@ public class ImmutableTree<S extends TreeNodeSemantics<S>>
 	@Override
 	public ImmutableTreeNode<S> node(AbsoluteTreePath path) {
 		if (nodesCache == null) {
-			nodesCache = nodes().stream().collect(Collectors.toMap(n -> n.absoluteTreePath(), n -> n));
+			nodesCache = nodes()
+					.stream()
+					.collect(Collectors.toMap(n -> n.absoluteTreePath(), n -> n));
 		}
 		return nodesCache.get(path);
 	}
@@ -57,7 +59,9 @@ public class ImmutableTree<S extends TreeNodeSemantics<S>>
 	@Override
 	public Map<AbsoluteTreePath, S> asMap() {
 		if (semanticsCache == null) {
-			semanticsCache = nodes().stream().collect(Collectors.toMap(n -> n.absoluteTreePath(), n -> n.semantics()));
+			semanticsCache = nodes()
+					.stream()
+					.collect(Collectors.toMap(n -> n.absoluteTreePath(), n -> n.semantics()));
 		}
 		return semanticsCache;
 	}

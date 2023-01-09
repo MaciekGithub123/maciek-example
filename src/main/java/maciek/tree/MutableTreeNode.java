@@ -3,7 +3,9 @@ package maciek.tree;
 import java.util.List;
 
 /**
- * A tree node implementation for tree which structure may be modified.
+ * Mutable tree node.
+ * <p>
+ * A tree build from such nodes can be structurally modified.
  */
 public class MutableTreeNode<S extends TreeNodeSemantics<S>> extends AbstractTreeNode<MutableTreeNode<S>, S> {
 

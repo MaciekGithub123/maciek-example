@@ -29,11 +29,6 @@ public interface TreeNode<N extends TreeNode<N, S>, S extends TreeNodeSemantics<
 	List<? extends N> descendants();
 
 	/**
-	 * The absolute tree path of this node.
-	 */
-	AbsoluteTreePath absoluteTreePath();
-
-	/**
 	 * The distance between this node and the root.
 	 */
 	int depth();

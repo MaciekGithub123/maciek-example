@@ -3,26 +3,38 @@ package maciek.tree;
 import java.util.function.Consumer;
 
 /**
- * A tree node pointer.
+ * A tree node pointer. Stateless.
  * <p>
  * Exposes method for traversing the tree.
  * <p>
  * May indicate a null node.
- * <p>
- * Return itself for method chaining.
  */
-public class TreeCursor<N extends TreeNode<N, S>, S extends TreeNodeSemantics<S>>
-		implements TreeLocation<S>, TreeNavigable<TreeCursor<N, S>> {
+public class TreeCursor<N extends TreeNode<N, S>, S extends TreeNodeSemantics<S>> implements TreeNavigable<TreeCursor<N, S>> {
 
 	/**
 	 * The traversed tree.
 	 */
-	private Tree<?, N, S> tree;
+	private final Tree<?, N, S> tree;
 
 	/**
 	 * The current location.
 	 */
-	private AbsoluteTreePath currentLoc;
+	private final AbsoluteTreePath currentLoc;
+
+	/**
+	 * Creates the cursor indicating tree root.
+	 */
+	public TreeCursor(Tree<?, N, S> tree) {
+		this(tree, AbsoluteTreePath.ROOT);
+	}
+	
+	/**
+	 * Creates the cursor indicating tree location at given path.
+	 */
+	public TreeCursor(Tree<?, N, S> tree, AbsoluteTreePath path) {
+		this.tree = tree;
+		this.currentLoc = path;
+	}
 
 	/**
 	 * Do something with the current node if the node at the current location exists.
@@ -35,28 +47,21 @@ public class TreeCursor<N extends TreeNode<N, S>, S extends TreeNodeSemantics<S>
 		return this;
 	}
 
+	/**
+	 * Gets the traversed tree.
+	 */
+	public Tree<?, N, S> getTree() {
+		return tree;
+	}
+	
+	@Override
+	public AbsoluteTreePath path() {
+		return currentLoc;
+	}
+
 	@Override
 	public TreeCursor<N, S> path(AbsoluteTreePath path) {
-		currentLoc = path;
-		return this;
-	}
-
-	@Override
-	public TreeCursor<N, S> root() {
-		currentLoc = currentLoc.root();
-		return this;
-	}
-
-	@Override
-	public TreeCursor<N, S> parent() {
-		currentLoc = currentLoc.parent();
-		return this;
-	}
-
-	@Override
-	public TreeCursor<N, S> child(int idx) {
-		currentLoc = currentLoc.child(idx);
-		return this;
+		return new TreeCursor<>(tree, path);
 	}
 
 	@Override
@@ -65,27 +70,10 @@ public class TreeCursor<N extends TreeNode<N, S>, S extends TreeNodeSemantics<S>
 		if (n != null) {
 			N ch = n.lastChild();
 			if (ch != null) {
-				currentLoc = ch.absoluteTreePath();
+				return new TreeCursor<>(tree, ch.path());
 			}
 		}
-		return this;
-	}
-
-	@Override
-	public TreeCursor<N, S> left() {
-		currentLoc = currentLoc.left();
-		return this;
-	}
-
-	@Override
-	public TreeCursor<N, S> right() {
-		currentLoc = currentLoc.right();
-		return this;
-	}
-
-	@Override
-	public AbsoluteTreePath get(Tree<?, ?, S> tree) {
-		return currentLoc;
+		throw new RuntimeException(); // TODO
 	}
 
 }

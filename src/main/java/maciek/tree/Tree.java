@@ -9,8 +9,9 @@ import java.util.stream.Stream;
 /**
  * A semantic tree.
  * <p>
- * Each node can have single parent and multiple children. Each node can have semantics of given type
- * assigned.
+ * Each node can have single parent and multiple children.
+ * <p>
+ * Each node can have semantics of given type assigned.
  * <p>
  * A semantic tree may be useful for:
  * <ul>
@@ -28,7 +29,7 @@ public interface Tree<T extends Tree<T, N, S>, N extends TreeNode<N, S>, S exten
 	 * The tree root.
 	 */
 	N root();
-	
+
 	/**
 	 * The tree node at given path.
 	 */
@@ -99,7 +100,7 @@ public interface Tree<T extends Tree<T, N, S>, N extends TreeNode<N, S>, S exten
 	 * The map representation of the tree.
 	 */
 	default Map<AbsoluteTreePath, S> asMap() {
-		return nodes().stream().collect(Collectors.toMap(n -> n.absoluteTreePath(), n -> n.semantics()));
+		return nodes().stream().collect(Collectors.toMap(n -> n.path(), n -> n.semantics()));
 	}
 
 	/**
@@ -120,13 +121,13 @@ public interface Tree<T extends Tree<T, N, S>, N extends TreeNode<N, S>, S exten
 				.stream()
 				.limit(snapshotsAgo)
 				.flatMap(t -> t.nodes().stream())
-				.map(TreeNode::absoluteTreePath)
+				.map(TreeNode::path)
 				.distinct()
 				.collect(Collectors.toList());
 
 		List<N> recentlyAdded = nodes()
 				.stream()
-				.filter(n -> !prevPaths.contains(n.absoluteTreePath()))
+				.filter(n -> !prevPaths.contains(n.path()))
 				.collect(Collectors.toList());
 
 		return recentlyAdded;

@@ -4,9 +4,9 @@ import java.util.Comparator;
 import java.util.function.Predicate;
 
 /**
- * A location in the tree determined by the predicate and the comparator.
+ * A query for a node in the tree determined by the predicate and the comparator.
  */
-public class TreeNodeQuery<S extends TreeNodeSemantics<S>> implements TreeLocation<S> {
+public class TreeNodeQuery<S extends TreeNodeSemantics<S>> {
 
 	/**
 	 * Predicate the queried node must fulfill.
@@ -17,11 +17,6 @@ public class TreeNodeQuery<S extends TreeNodeSemantics<S>> implements TreeLocati
 	 * Determines the precedence if multiple nodes fulfills the predicate.
 	 */
 	private Comparator<TreeNode<?, S>> comparator;
-
-	@Override
-	public AbsoluteTreePath get(Tree<?, ?, S> tree) {
-		return queryNode(tree).absoluteTreePath();
-	}
 
 	/**
 	 * Queries for the tree node.

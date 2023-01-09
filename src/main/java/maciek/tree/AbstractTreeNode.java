@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * An abstract implementation of TreeNode.
+ * The abstract TreeNode implementation.
  */
 public abstract class AbstractTreeNode<N extends AbstractTreeNode<N, S>, S extends TreeNodeSemantics<S>> implements TreeNode<N, S> {
 
@@ -32,7 +32,7 @@ public abstract class AbstractTreeNode<N extends AbstractTreeNode<N, S>, S exten
 	 * Constructor for subclasses.
 	 * 
 	 * @param children    the actual children list
-	 * @param semantics   the semantics copied on set
+	 * @param semantics   the semantics, copied on set
 	 */
 	protected AbstractTreeNode(N parent, List<N> children, S semantics) {
 		p = parent;
@@ -40,18 +40,25 @@ public abstract class AbstractTreeNode<N extends AbstractTreeNode<N, S>, S exten
 		s = semantics.copy(this);
 	}
 
-	/**
-	 * Gets this.
-	 * <p>
-	 * For this implementation to operate on actual implementation type instead of abstract type.
-	 */
-	protected abstract N getThis();
+	@Override
+	public AbsoluteTreePath path() {
+		LinkedList<Integer> path = new LinkedList<>();
+		for (N n = getThis(); n != null; n = n.p) {
+			path.addFirst(n.childIndex());
+		}
+		return new AbsoluteTreePath(path);
+	}
 	
 	@Override
-	public N path(AbsoluteTreePath absoluteTreePath) {
-		return absoluteTreePath.get(root());
+	public N path(AbsoluteTreePath path) {
+		return path.get(root());
 	}
 
+	@Override
+	public N root() {
+		return p == null ? getThis() : p.root();
+	}
+	
 	@Override
 	public N parent() {
 		return p;
@@ -60,6 +67,11 @@ public abstract class AbstractTreeNode<N extends AbstractTreeNode<N, S>, S exten
 	@Override
 	public N child(int idx) {
 		return ch.get(idx);
+	}
+	
+	@Override
+	public List<N> children() {
+		return new LinkedList<>(ch);
 	}
 	
 	@Override
@@ -89,19 +101,10 @@ public abstract class AbstractTreeNode<N extends AbstractTreeNode<N, S>, S exten
 	}
 
 	@Override
-	public List<N> children() {
-		return new LinkedList<>(ch);
-	}
-
-	@Override
 	public S semantics() {
 		return s.copy(this);
 	}
 
-	@Override
-	public N root() {
-		return p == null ? getThis() : p.root();
-	}
 
 	@Override
 	public int depth() {
@@ -120,15 +123,6 @@ public abstract class AbstractTreeNode<N extends AbstractTreeNode<N, S>, S exten
 	}
 
 	@Override
-	public AbsoluteTreePath absoluteTreePath() {
-		LinkedList<Integer> path = new LinkedList<>();
-		for (N n = getThis(); n != null; n = n.p) {
-			path.addFirst(n.childIndex());
-		}
-		return new AbsoluteTreePath(path);
-	}
-
-	@Override
 	public ImmutableTree<S> subtree() {
 		return ImmutableTree.<S>mapper().map(this);
 	}
@@ -142,5 +136,12 @@ public abstract class AbstractTreeNode<N extends AbstractTreeNode<N, S>, S exten
 		}
 		return p.children().indexOf(this);
 	}
+	
+	/**
+	 * Gets this.
+	 * <p>
+	 * Lets operate on actual implementation type instead of abstract type.
+	 */
+	protected abstract N getThis();
 
 }

@@ -1,7 +1,7 @@
 package maciek.tree;
 
 /**
- * Abstract tree implementation.
+ * The abstract Tree implementation.
  */
 public abstract class AbstractTree<T extends AbstractTree<T, N, S>, N extends AbstractTreeNode<N, S>, S extends TreeNodeSemantics<S>>
 		implements Tree<T, N, S> {
