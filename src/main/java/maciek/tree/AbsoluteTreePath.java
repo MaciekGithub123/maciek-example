@@ -2,6 +2,7 @@ package maciek.tree;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -55,6 +56,13 @@ public class AbsoluteTreePath implements Comparable<AbsoluteTreePath>, TreeNavig
 	}
 
 	/**
+	 * The consecutive ancestors child indexes composing the path.
+	 */
+	public LinkedList<Integer> getIndexes() {
+		return new LinkedList<>(ancestorsChildIdx);
+	}
+
+	/**
 	 * Compares the absolute tree paths.
 	 * <p>
 	 * The order is: ancestors before descendants and left siblings before right.
@@ -98,7 +106,7 @@ public class AbsoluteTreePath implements Comparable<AbsoluteTreePath>, TreeNavig
 	}
 
 	// navigation
-	
+
 	@Override
 	public AbsoluteTreePath path() {
 		return this;
@@ -174,7 +182,5 @@ public class AbsoluteTreePath implements Comparable<AbsoluteTreePath>, TreeNavig
 
 		return new AbsoluteTreePath(rightPath);
 	}
-
-
 
 }
