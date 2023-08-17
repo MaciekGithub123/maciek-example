@@ -9,7 +9,8 @@ import java.util.List;
  * @param <N> this node type
  * @param <S> semantics type
  */
-public abstract class AbstractTreeNode<N extends AbstractTreeNode<N, S>, S extends TreeNodeSemantics<S>> implements TreeNode<N, S> {
+public abstract class AbstractTreeNode<N extends AbstractTreeNode<N, S>, S extends TreeNodeSemantics<S>>
+		implements TreeNode<N, S> {
 
 	/**
 	 * The node's parent.
@@ -34,8 +35,8 @@ public abstract class AbstractTreeNode<N extends AbstractTreeNode<N, S>, S exten
 	/**
 	 * Constructor for subclasses.
 	 * 
-	 * @param children    the actual children list
-	 * @param semantics   the semantics copied on set
+	 * @param children  the actual children list
+	 * @param semantics the semantics copied on set
 	 */
 	protected AbstractTreeNode(N parent, List<N> children, S semantics) {
 		p = parent;
@@ -46,7 +47,8 @@ public abstract class AbstractTreeNode<N extends AbstractTreeNode<N, S>, S exten
 	/**
 	 * Gets this.
 	 * <p>
-	 * For this implementation to operate on actual implementation type instead of abstract type.
+	 * For this implementation to operate on actual implementation type instead of
+	 * abstract type.
 	 */
 	protected abstract N getThis();
 
@@ -98,7 +100,7 @@ public abstract class AbstractTreeNode<N extends AbstractTreeNode<N, S>, S exten
 
 	@Override
 	public List<? extends N> descendants() {
-		
+
 		LinkedList<N> desc = new LinkedList<>();
 		desc.addAll(ch);
 
